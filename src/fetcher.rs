@@ -1,8 +1,6 @@
 extern crate reqwest;
 extern crate serde_json;
 
-use serde_json::Value;
-
 const URL_PROBLEMS: &str = "https://leetcode.com/api/problems/algorithms/";
 const URL_GRAPHQL: &str = "https://leetcode.com/graphql";
 const QUESTION_QUERY_STRING: &str = r#"
@@ -66,8 +64,10 @@ pub struct Problem {
     pub title: String,
     pub title_slug: String,
     pub content: String,
-    pub codeDefinition: Vec<CodeDefinition>,
-    pub sampleTestCase: String,
+    #[serde(rename = "codeDefinition")]
+    pub code_definition: Vec<CodeDefinition>,
+    #[serde(rename = "sampleTestCase")]
+    pub sample_test_case: String,
     pub difficulty: String,
     pub question_id: u32,
     pub return_type: String,
@@ -75,7 +75,10 @@ pub struct Problem {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CodeDefinition {
-    //...
+    pub value: String,
+    pub text: String,
+    #[serde(rename = "defaultCode")]
+    pub default_code: String
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -86,7 +89,7 @@ struct Query {
 }
 
 impl Query {
-    fn question_query(title_slug: &str) -> Query {
+    fn make_question_query(title_slug: &str) -> Query {
         Query {
             operation_name : QUESTION_QUERY_OPERATION.into(),
             variables      : json!({"titleSlug": title_slug}),
@@ -96,7 +99,7 @@ impl Query {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-struct RawProblem {
+struct RawResponse {
     data: Data
 }
 
@@ -121,22 +124,40 @@ pub fn get_problem(frontend_question_id: &u32) -> Option<Problem> {
     let problems = get_all_problems().unwrap();
 
     for problem in problems.stat_status_pairs.iter() {
+
         if problem.stat.frontend_question_id == *frontend_question_id {
+
             if problem.paid_only { return None; }
+
+            let client = reqwest::blocking::Client::new();
+            let question_title = problem.stat.question_title_slug.as_ref().unwrap();
+            let query = Query::make_question_query(&question_title);
+
+            let resp  = client
+                .post(URL_GRAPHQL)
+                .json(&query)
+                .send()
+                .unwrap()
+                .json::<RawResponse>()
+                .unwrap();
+
+            let code_defs = serde_json::from_str::<Vec<CodeDefinition>>
+                (&resp.data.question.code_definition).unwrap();
+
+            let meta_data = serde_json::from_str::<serde_json::Value>
+                (&resp.data.question.meta_data).unwrap();
+
+            return Some(Problem {
+                title: problem.stat.question_title.clone().unwrap(),
+                title_slug: problem.stat.question_title_slug.clone().unwrap(),
+                content: resp.data.question.content,
+                code_definition: code_defs,
+                sample_test_case: resp.data.question.sample_test_case,
+                difficulty:  problem.difficulty.level.to_string(),
+                question_id: problem.stat.frontend_question_id,
+                return_type: meta_data["return"]["type"].to_string().replace("\"", ""),
+            });
         }
-
-        let client = reqwest::blocking::Client::new();
-        let resp: RawProblem = client
-            .post(URL_GRAPHQL)
-            .json(&Query::question_query(
-                    problem.stat.question_title_slug.as_ref().unwrap()
-            ))
-            .send()
-            .unwrap()
-            .json::<RawProblem>()
-            .unwrap();
-
-        println!("{resp:?}");
     }
     None
 }
