@@ -20,41 +20,44 @@ fn main() {
 			or \"solve $i\" to move problem to solutions/, \n\
 			or \"all\" to initialize all problems \n");
 
+    loop {
+        let mut prompt = String::new();
 
-    // let mut id_arg = String::new();
-    // io::stdin()
-    //     .read_line(&mut id_arg)
-    //     .expect("Failed to read line");
-    let id_arg = "solve 919";
+        io::stdin()
+            .read_line(&mut prompt)
+            .expect("Failed to read line");
 
-    let id_arg = id_arg.trim();
+        let prompt = prompt.trim();
 
-    let pat_random = Regex::new(r"^random$").unwrap();
-    let pat_solving = Regex::new(r"^solve (\d+)$").unwrap();
+        // let pat_random = Regex::new(r"^random$").unwrap();
+        let pat_solving = Regex::new(r"^solve (\d+)$").unwrap();
 
-    let mut is_solving: bool = false;
-    let mut id: u32 = 0;
+        // let mut is_solving: bool = false;
 
-    if pat_solving.is_match(id_arg) {
+        if pat_solving.is_match(prompt) {
 
-        is_solving = true;
+            // is_solving = true;
 
-        id = pat_solving
-            .captures(id_arg)
-            .unwrap()
-            .get(1)
-            .unwrap()
-            .as_str()
-            .parse()
-            .unwrap();
+            let id: u32 = pat_solving
+                .captures(prompt)
+                .unwrap()
+                .get(1)
+                .unwrap()
+                .as_str()
+                .parse()
+                .unwrap();
 
-        println!("You select {id}");
-        deal_solving(&id);
+            deal_solving(&id);
+        } else {
+            println!("Invalid command, please re-enter.");
+        }
     }
 }
 
 fn deal_solving(id: &u32) { // -> Option<Problem> {
-    println!("{id}");
-    let problem = fetcher::get_problem(id);//.unwrap();
+
+    // TODO: design to return an Error type and make the loop to continue
+    let _problem = fetcher::get_problem(id).unwrap();
+    println!("{:#?}", _problem);
 }
 
