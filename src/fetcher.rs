@@ -14,6 +14,7 @@ query questionData($titleSlug: String!) {
     }
 }"#;
 const QUESTION_QUERY_OPERATION: &str = "questionData";
+const PROG_LANG: &str = "rust";
 
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -65,7 +66,7 @@ pub struct Problem {
     pub title_slug: String,
     pub content: String,
     #[serde(rename = "codeDefinition")]
-    pub code_definition: Vec<CodeDefinition>,
+    pub code_definition: CodeDefinition,
     #[serde(rename = "sampleTestCase")]
     pub sample_test_case: String,
     pub difficulty: String,
@@ -73,7 +74,7 @@ pub struct Problem {
     pub return_type: String,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CodeDefinition {
     pub value: String,
     pub text: String,
@@ -144,6 +145,9 @@ pub fn get_problem(frontend_question_id: &u32) -> Option<Problem> {
             let code_defs = serde_json::from_str::<Vec<CodeDefinition>>
                 (&resp.data.question.code_definition).unwrap();
 
+            let code_definition = code_defs.iter().find
+                (|e| e.value == PROG_LANG.to_string()).unwrap();
+
             let meta_data = serde_json::from_str::<serde_json::Value>
                 (&resp.data.question.meta_data).unwrap();
 
@@ -151,7 +155,7 @@ pub fn get_problem(frontend_question_id: &u32) -> Option<Problem> {
                 title: problem.stat.question_title.clone().unwrap(),
                 title_slug: problem.stat.question_title_slug.clone().unwrap(),
                 content: resp.data.question.content,
-                code_definition: code_defs,
+                code_definition: code_definition.clone(),
                 sample_test_case: resp.data.question.sample_test_case,
                 difficulty:  problem.difficulty.level.to_string(),
                 question_id: problem.stat.frontend_question_id,
