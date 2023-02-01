@@ -1,4 +1,5 @@
 #![allow(unused_imports)]
+#![allow(unused_must_use)]
 
 #[macro_use]
 extern crate serde_derive;
@@ -51,7 +52,6 @@ fn main() {
 			.replace("__PROBLEM_LINK__", &parse_problem_link(&problem))
 			.replace("__DISCUSS_LINK__", &parse_discuss_link(&problem));
 
-        // dbg!(source);
         let mut file = fs::OpenOptions::new()
             .write(true)
             .create(true)
@@ -67,6 +67,7 @@ fn main() {
             .append(true)
             .open(PATH_MOD_FILE)
             .unwrap();
+
         writeln!(lib_file, "mod {};", solution_path.file_stem().unwrap().to_str().unwrap());
     }
 }
