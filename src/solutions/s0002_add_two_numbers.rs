@@ -28,6 +28,7 @@
  * 	It is guaranteed that the list represents a number that does not have leading zeros.
  *
  */
+
 pub struct Solution {}
 use crate::utils::linked_list::{ListNode, to_list};
 
@@ -52,43 +53,10 @@ use crate::utils::linked_list::{ListNode, to_list};
 //     }
 //   }
 // }
+
 impl Solution {
     pub fn add_two_numbers(l1: Option<Box<ListNode>>,
                            l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-
-        // let mut l1 = l1;
-        // let mut l2 = l2;
-        // let mut ans = Some(Box::new(ListNode::new(0)));
-        // let mut carry: i32 = 0;
-        //
-        // while l1.as_ref().is_some() || l2.as_ref().is_some() || carry != 0 {
-        //
-        //     let l1_val = match l1 {
-        //         Some(node) => {
-        //             l1 = node.next;
-        //             node.val
-        //         },
-        //         None => { 0 }
-        //     };
-        //
-        //     let l2_val = match l2 {
-        //         Some(node) => {
-        //             l2 = node.next;
-        //             node.val
-        //         },
-        //         None => { 0 }
-        //     };
-        //
-        //     let sum = l1_val + l2_val + carry;
-        //     carry = sum / 10;
-        //
-        //     ans.as_ref().unwrap().next = Some(Box::new(ListNode::new(sum % 10)));
-        //     //
-        //     // dbg!(sum);
-        //
-        // }
-        //
-        // Some(Box::new(ListNode::new(0)))
 
         let mut l1 = l1.clone();
         let mut l2 = l2.clone();
@@ -112,9 +80,10 @@ impl Solution {
                 l2 = node.next;
             }
 
-            current.next = Some(Box::new(ListNode::new((v1 + v2 + carry) % 10)));
+            let sum = v1 + v2 + carry;
+            current.next = Some(Box::new(ListNode::new(sum % 10)));
             current = current.next.as_mut().unwrap();
-            carry = (v1 + v2 + carry) / 10;
+            carry = sum / 10;
         }
 
         head.next
