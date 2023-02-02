@@ -36,11 +36,6 @@ pub struct Solution {}
 
 // submission codes start here
 
-// 1789871
-// stack; 1 7 8 9 8 7 1
-// log1
-
-
 impl Solution {
     pub fn is_palindrome(x: i32) -> bool {
 
@@ -59,7 +54,6 @@ impl Solution {
             x = (x - a*t) / 10;
             t /= 100;
         }
-        dbg!(x);
         true
     }
 }
