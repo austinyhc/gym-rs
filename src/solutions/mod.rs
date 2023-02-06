@@ -7,3 +7,4 @@ mod s1480_running_sum_of_1d_array;
 mod s0724_find_pivot_index;
 mod s0205_isomorphic_strings;
 mod s0392_is_subsequence;
+mod s0021_merge_two_sorted_lists;
