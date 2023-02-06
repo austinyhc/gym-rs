@@ -5,3 +5,5 @@ mod s0007_reverse_integer;
 mod s0020_valid_parentheses;
 mod s1480_running_sum_of_1d_array;
 mod s0724_find_pivot_index;
+mod s0205_isomorphic_strings;
+mod s0392_is_subsequence;
