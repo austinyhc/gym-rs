@@ -8,3 +8,6 @@ mod s0724_find_pivot_index;
 mod s0205_isomorphic_strings;
 mod s0392_is_subsequence;
 mod s0021_merge_two_sorted_lists;
+mod s1290_convert_binary_number_in_a_linked_list_to_integer;
+mod s0206_reverse_linked_list;
+mod s0832_flipping_an_image;
