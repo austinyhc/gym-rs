@@ -34,14 +34,15 @@ impl Solution {
             loop {
                 if let Some(tc) = t_chars.next() {
                     if tc == sc { break; }
+                } else {
+                    return false;
                 }
-                else { return false; }
             }
         }
         true
     }
 
-    pub fn __is_subsequence(s: String, t: String) -> bool {
+    pub fn _is_subsequence(s: String, t: String) -> bool {
         let n = t.len();
         let mut i = 0;
 
@@ -54,25 +55,6 @@ impl Solution {
             i += 1;
         }
         true
-    }
-
-    pub fn _is_subsequence(s: String, t: String) -> bool {
-        let (mut i, mut j) = (0, 0);
-
-        if s.len() == 0 { return true; }
-
-        while i < s.len() && j < t.len() {
-            let char_s = s.chars().nth(i);
-            let char_t = t.chars().nth(j);
-            // dbg!((char_s, char_t));
-            if char_s == char_t {
-                i += 1;
-                j += 1;
-            } else {
-                j += 1;
-            }
-        }
-        i == s.len()
     }
 }
 

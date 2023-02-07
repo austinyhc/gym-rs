@@ -56,8 +56,8 @@ use crate::utils::linked_list::{ListNode, to_list};
 // }
 impl Solution {
     pub fn remove_nth_from_end(head: Option<Box<ListNode>>, n: i32) -> Option<Box<ListNode>> {
-        // Some(Box::new(ListNode::new(0)))
         Self::remove_nth_from_end_recr(head, n).0
+        //Some(Box::new(ListNode::new(0)))
     }
 
     fn remove_nth_from_end_recr(head: Option<Box<ListNode>>, n: i32) -> (Option<Box<ListNode>>, i32){

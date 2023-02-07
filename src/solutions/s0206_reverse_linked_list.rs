@@ -59,7 +59,6 @@ impl Solution {
         let mut curr = head;
 
         while let Some(mut node) = curr {
-            dbg!(&node);
             curr = node.next;
             node.next = prev;
             prev = Some(node);

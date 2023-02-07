@@ -55,7 +55,6 @@ impl Solution {
                 else if c == ']' && last != '[' { return false; }
                 else if c == '}' && last != '{' { return false; }
             }
-            // dbg!(&stack);
         }
         stack.is_empty()
     }
