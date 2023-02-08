@@ -56,23 +56,24 @@ use crate::utils::linked_list::{ListNode, to_list};
 // }
 impl Solution {
     pub fn remove_nth_from_end(head: Option<Box<ListNode>>, n: i32) -> Option<Box<ListNode>> {
-        Self::remove_nth_from_end_recr(head, n).0
-        //Some(Box::new(ListNode::new(0)))
-    }
+        let mut head = head;
+        let mut fast = head.clone();
+        let mut slow = head.as_mut();
 
-    fn remove_nth_from_end_recr(head: Option<Box<ListNode>>, n: i32) -> (Option<Box<ListNode>>, i32){
-        match head {
-            None => (None, 1),
-            Some(mut node) => {
-                let (prev, num) = Self::remove_nth_from_end_recr(node.next.take(), n);
-                if n == num as i32 {
-                    (prev, num+1)
-                } else{
-                    node.next = prev;
-                    (Some(node), num+1)
-                }
-            }
+        for _ in 0..n {
+            fast = fast.unwrap().next;
         }
+
+        if fast == None {
+            return head.unwrap().next;
+        }
+
+        while fast.clone().unwrap().next != None {
+            fast = fast.unwrap().next;
+            slow = slow.unwrap().next.as_mut();
+        }
+        slow.as_mut().unwrap().next = slow.as_mut().unwrap().next.as_mut().unwrap().next.take();
+        head
     }
 }
 
