@@ -17,3 +17,4 @@ mod s0013_roman_to_integer;
 mod s0621_task_scheduler;
 mod s0155_min_stack;
 mod s0125_valid_palindrome;
+mod s0242_valid_anagram;
