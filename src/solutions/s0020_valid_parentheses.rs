@@ -41,22 +41,22 @@ pub struct Solution {}
 impl Solution {
     pub fn is_valid(s: String) -> bool {
 
-        let mut stack = vec![];
+        let mut previous = vec![];
 
-        for c in s.chars() {
+        let stream = s.chars().collect::<Vec<_>>();
+        if stream.len() < 2 { return false; }
+
+        for c in stream {
             if (c == '(') || (c == '[') || (c == '{') {
-                stack.push(c);
+                previous.push(c);
             } else {
-
-                if stack.len() == 0 { return false; }
-
-                let last = stack.pop().unwrap();
+                let last = previous.pop().unwrap();
                 if      c == ')' && last != '(' { return false; }
                 else if c == ']' && last != '[' { return false; }
                 else if c == '}' && last != '{' { return false; }
             }
         }
-        stack.is_empty()
+        previous.is_empty()
     }
 }
 
