@@ -18,3 +18,4 @@ mod s0621_task_scheduler;
 mod s0155_min_stack;
 mod s0125_valid_palindrome;
 mod s0242_valid_anagram;
+mod s0121_best_time_to_buy_and_sell_stock;
