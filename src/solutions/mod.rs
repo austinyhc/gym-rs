@@ -24,3 +24,4 @@ mod s0015_3sum;
 mod s0383_ransom_note;
 mod s0704_binary_search;
 mod s0046_permutations;
+mod s0067_add_binary;
