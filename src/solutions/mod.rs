@@ -26,3 +26,4 @@ mod s0704_binary_search;
 mod s0046_permutations;
 mod s0067_add_binary;
 mod s0169_majority_element;
+mod s0104_maximum_depth_of_binary_tree;
