@@ -30,27 +30,19 @@ pub struct Solution {}
 use std::collections::HashMap;
 
 impl Solution {
-    pub fn majority_element(nums: Vec<i32>) -> Option<i32> {
-        let total = nums.len() as u32;
+    pub fn majority_element(nums: Vec<i32>) -> i32 {
+
         let mut dict: HashMap<i32,u32> = HashMap::new();
-        let mut majority: Option<i32> = None;
-        let mut max_ratio = f32::MIN;
 
         for num in nums {
-            if let Some(&count) = dict.get(&num) {
-
-                dict.insert(num, count+1);
-
-                let ratio: f32 = ((count+1) / total) as f32;
-                if ratio > max_ratio {
-                    max_ratio = ratio;
-                    majority = Some(num);
-                }
+            if let Some(count) = dict.get_mut(&num) {
+                *count += 1;
             } else {
                 dict.insert(num, 1);
             }
         }
-        majority
+    
+        *dict.iter().max_by_key(|e| e.1).unwrap().0
     }
 }
 
@@ -62,11 +54,9 @@ mod tests {
 
     #[test]
     fn test_169() {
-        assert_eq!(Some(3), Solution::majority_element(vec![3,2,3]));
-        assert_eq!(Some(2), Solution::majority_element(vec![2,2,1,1,1,2,2]));
-        assert_eq!(Some(1), Solution::majority_element(vec![1,2,3,4,5,6,7,1]));
-        assert_eq!(None, Solution::majority_element(vec![1,2,3,4,5,6,7,8]));
-        assert_eq!(None, Solution::majority_element(vec![]));
+        assert_eq!(3, Solution::majority_element(vec![3,2,3]));
+        assert_eq!(2, Solution::majority_element(vec![2,2,1,1,1,2,2]));
+        assert_eq!(1, Solution::majority_element(vec![2,2,1,1,1,1,1]));
     }
 }
 
