@@ -49,11 +49,16 @@ pub struct Solution {}
 impl Solution {
     pub fn find_min(nums: Vec<i32>) -> i32 {
 
+        let pos = Self::find_first_of_rotated_sorted_array(&nums);
+        nums[pos]
+    }
+
+    pub fn find_first_of_rotated_sorted_array(nums: &Vec<i32>) -> usize {
         let mut left: i32 = -1;
         let mut right: i32 = nums.len() as i32;
         
         if nums[(right-1) as usize] >= nums[0] {
-            return nums[0];
+            return 0;
         }
 
         while left+1 != right {
@@ -64,7 +69,7 @@ impl Solution {
                 left = mid;
             }
         }
-        nums[right as usize]
+        right as usize
     }
 }
 
