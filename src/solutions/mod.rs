@@ -34,3 +34,4 @@ mod s0409_longest_palindrome;
 mod s0733_flood_fill;
 mod g0001_parking_status;
 mod s0035_search_insert_position;
+mod s0034_find_first_and_last_position_of_element_in_sorted_array;
