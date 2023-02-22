@@ -33,3 +33,4 @@ mod s0219_contains_duplicate_ii;
 mod s0409_longest_palindrome;
 mod s0733_flood_fill;
 mod g0001_parking_status;
+mod s0035_search_insert_position;
