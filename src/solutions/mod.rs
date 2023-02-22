@@ -39,3 +39,4 @@ mod s0153_find_minimum_in_rotated_sorted_array;
 mod s0074_search_a_2d_matrix;
 mod s0033_search_in_rotated_sorted_array;
 mod s0069_sqrtx;
+mod s0070_climbing_stairs;
