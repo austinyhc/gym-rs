@@ -1,5 +1,6 @@
 mod g0001_parking_status;
 mod m0001_is_substring_in_rotated;
+mod m0002_binary_search_a_list_of_string;
 mod s0001_two_sum;
 mod s0002_add_two_numbers;
 mod s0007_reverse_integer;
