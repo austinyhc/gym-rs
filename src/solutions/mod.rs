@@ -45,3 +45,4 @@ mod s1480_running_sum_of_1d_array;
 mod s0094_binary_tree_inorder_traversal;
 mod s0144_binary_tree_preorder_traversal;
 mod s0145_binary_tree_postorder_traversal;
+mod s0100_same_tree;
