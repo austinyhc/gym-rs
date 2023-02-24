@@ -42,3 +42,6 @@ mod s0832_flipping_an_image;
 mod s0876_middle_of_the_linked_list;
 mod s1290_convert_binary_number_in_a_linked_list_to_integer;
 mod s1480_running_sum_of_1d_array;
+mod s0094_binary_tree_inorder_traversal;
+mod s0144_binary_tree_preorder_traversal;
+mod s0145_binary_tree_postorder_traversal;
