@@ -46,3 +46,6 @@ mod s0094_binary_tree_inorder_traversal;
 mod s0144_binary_tree_preorder_traversal;
 mod s0145_binary_tree_postorder_traversal;
 mod s0100_same_tree;
+mod s0096_unique_binary_search_trees;
+mod s0344_reverse_string;
+mod s0541_reverse_string_ii;
