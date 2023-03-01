@@ -50,3 +50,4 @@ mod s0096_unique_binary_search_trees;
 mod s0344_reverse_string;
 mod s0541_reverse_string_ii;
 mod s1680_concatenation_of_consecutive_binary_numbers;
+mod s0053_maximum_subarray;
