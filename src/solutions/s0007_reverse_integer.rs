@@ -33,18 +33,38 @@ pub struct Solution {}
 // submission codes start here
 
 impl Solution {
-    pub fn reverse(x: i32) -> i32 {
-        let mut r_str = String::new();
-        let r_num: i32;
 
-        for c in x.abs().to_string().chars().rev() {
-            r_str.push(c);
-        }
-        r_num = match r_str.parse() {
-            Ok(n) => n,
-            Err(_) => { return 0; }
+    // pub fn reverse(x: i32) -> i32 {
+    //     let mut r_str = String::new();
+    //     let r_num: i32;
+    //
+    //     for c in x.abs().to_string().chars().rev() {
+    //         r_str.push(c);
+    //     }
+    //     r_num = match r_str.parse() {
+    //         Ok(n) => n,
+    //         Err(_) => { return 0; }
+    //     };
+    //     r_num * x.signum()
+    // }
+
+    pub fn reverse(x: i32) -> i32 {
+        let mut result = 0;
+        let sign = x.signum(); 
+        Self::reverser(x.abs(), &mut result);
+        result * sign
+    }
+
+    pub fn reverser(x: i32, result: &mut i32) {
+        if x == 0 { return; }
+
+        *result = match result.checked_mul(10) {
+            Some(n) => n,
+            None => { *result = 0; return; }
         };
-        r_num * x.signum()
+        *result += x % 10;
+
+        Self::reverser(x / 10, result);
     }
 }
 
