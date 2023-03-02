@@ -52,3 +52,4 @@ mod s0541_reverse_string_ii;
 mod s1680_concatenation_of_consecutive_binary_numbers;
 mod s0053_maximum_subarray;
 mod s0405_convert_a_number_to_hexadecimal;
+mod s0226_invert_binary_tree;
