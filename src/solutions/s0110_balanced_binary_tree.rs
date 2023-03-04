@@ -55,7 +55,9 @@ use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
     pub fn is_balanced(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
+
         if let Some(node) = root {
+
             let left_h = Self::height(node.borrow().left.clone());
             let right_h = Self::height(node.borrow().right.clone());
 
